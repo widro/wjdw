@@ -1,7 +1,16 @@
-<?
+<?php
+error_reporting(E_ALL & ~E_NOTICE);
 
+$thisurl =  $_SERVER['HTTP_HOST'];
 
-include_once('includes/config.php');
+if(($thisurl=="www.wjdw.com")||($thisurl=="wjdw.com")){
+	include_once('includes/config.php');
+}
+else{
+	$dbname = "wjdw";
+	$connection = mysql_connect( "localhost", "root", "") or die("Couldn't connect.");
+	$db = mysql_select_db($dbname) or die("Couldn't select database");
+}
 
 if($_GET['year']){
 	$year = $_GET['year'];
@@ -128,7 +137,7 @@ for ( $i = 0; $i < $totalmixes; $i++) {
 <?php include('includes/header.php'); ?>
 
 <table width=600 cellpadding=25>
-<?=$displayall?>
+<?php echo $displayall; ?>
 </table>
 
 
