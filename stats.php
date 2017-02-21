@@ -1,5 +1,11 @@
 <?
-include('includes/config.php');
+$thisurl =  $_SERVER['HTTP_HOST'];
+if(($thisurl=="www.widroverse.com")||($thisurl=="widroverse.com")){
+	$link = mysqli_connect("internal-db.s214582.gridserver.com", "db214582", "_r6eM7R-td", "db214582_widroverse");
+}
+else{
+	$link = mysqli_connect("localhost", "root", "", "1upguide");
+}
 
 if($_GET['b']){
 	$b = $_GET['b'];
@@ -20,10 +26,10 @@ group by band
 order by totalsongs desc
 ";
 
-$resultplaylists = mysql_query($sqlplaylists);
+$resultplaylists = mysqli_query($link, $sqlplaylists);
 $i=0;
 
-while($rowplaylists = mysql_fetch_array($resultplaylists)){
+while($rowplaylists = mysqli_fetch_array($resultplaylists)){
 	$totalsongs = $rowplaylists['totalsongs'];
 	$band = $rowplaylists['band'];
 	$band = "<a href=\"band.php?b=$band\">$band</a>";

@@ -1,8 +1,12 @@
 <?php
+$thisurl =  $_SERVER['HTTP_HOST'];
 
-
-
-include('config.php');
+if(($thisurl=="www.widroverse.com")||($thisurl=="widroverse.com")){
+	$link = mysqli_connect("internal-db.s214582.gridserver.com", "db214582", "_r6eM7R-td", "db214582_widroverse");
+}
+else{
+	$link = mysqli_connect("localhost", "root", "", "1upguide");
+}
 
 
 
@@ -20,7 +24,7 @@ ORDER BY band
 
 
 
-$resultband = mysql_query($sqlband);
+$resultband = mysqli_query($link, $sqlband);
 
 $i=0;
 
@@ -28,7 +32,7 @@ $displayband .= "<option>-- select one -- </option>";
 
 
 
-while($rowband = mysql_fetch_array($resultband)){
+while($rowband = mysqli_fetch_array($resultband)){
 
 	$band = $rowband['band'];
 
@@ -127,6 +131,10 @@ MANGO RADIO
 <br><br>
 
 Playlists:
+
+<a href=index.php?year=2017>2017</a> |
+
+<a href=index.php?year=2016>2016</a> |
 
 <a href=index.php?year=2015>2015</a> |
 

@@ -3,20 +3,18 @@ error_reporting(E_ALL & ~E_NOTICE);
 
 $thisurl =  $_SERVER['HTTP_HOST'];
 
-if(($thisurl=="www.wjdw.com")||($thisurl=="wjdw.com")){
-	include_once('includes/config.php');
+if(($thisurl=="www.widroverse.com")||($thisurl=="widroverse.com")){
+	$link = mysqli_connect("internal-db.s214582.gridserver.com", "db214582", "_r6eM7R-td", "db214582_widroverse");
 }
 else{
-	$dbname = "wjdw";
-	$connection = mysql_connect( "localhost", "root", "") or die("Couldn't connect.");
-	$db = mysql_select_db($dbname) or die("Couldn't select database");
+	$link = mysqli_connect("localhost", "root", "", "1upguide");
 }
 
 if($_GET['year']){
 	$year = $_GET['year'];
 }
 else{
-	$year = "2015";
+	$year = "2017";
 }
 
 if($_GET['active']){
@@ -35,10 +33,10 @@ AND date LIKE '$year%'
 ORDER BY date DESC
 ";
 
-$resultmix = mysql_query($sqlmix);
+$resultmix = mysqli_query($link, $sqlmix);
 $i=0;
 
-while($rowmix1 = mysql_fetch_array($resultmix)){
+while($rowmix1 = mysqli_fetch_array($resultmix)){
 	$rowmix[$i]=$rowmix1['mix1'];
 	$i++;
 }
@@ -59,9 +57,9 @@ AND date LIKE '$year%'
 ORDER BY date DESC, track
 ";
 
-$resultplaylists = mysql_query($sqlplaylists);
+$resultplaylists = mysqli_query($link, $sqlplaylists);
 
-while($rowplaylists = mysql_fetch_array($resultplaylists)){
+while($rowplaylists = mysqli_fetch_array($resultplaylists)){
 
 $id = $rowplaylists['id'];
 $track = $rowplaylists['track'];

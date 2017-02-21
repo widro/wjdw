@@ -1,6 +1,12 @@
 <?
+$thisurl =  $_SERVER['HTTP_HOST'];
 
-include('includes/config.php');
+if(($thisurl=="www.widroverse.com")||($thisurl=="widroverse.com")){
+	$link = mysqli_connect("internal-db.s214582.gridserver.com", "db214582", "_r6eM7R-td", "db214582_widroverse");
+}
+else{
+	$link = mysqli_connect("localhost", "root", "", "1upguide");
+}
 
 
 if($_GET['b']){
@@ -21,10 +27,10 @@ AND band = '$b'
 ORDER BY date DESC, track
 ";
 
-$resultplaylists = mysql_query($sqlplaylists);
+$resultplaylists = mysqli_query($link, $sqlplaylists);
 $i=0;
 
-while($rowplaylists = mysql_fetch_array($resultplaylists)){
+while($rowplaylists = mysqli_fetch_array($resultplaylists)){
 
 $id = $rowplaylists['id'];
 $track = $rowplaylists['track'];
